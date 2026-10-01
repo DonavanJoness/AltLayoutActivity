@@ -10,11 +10,29 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-
+import android.widget.Button
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.ConfigurationCompat
+import androidx.core.os.LocaleListCompat
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        findViewById<Button>(R.id.languageButton).setOnClickListener {
+
+            val currentLanguage = ConfigurationCompat
+                .getLocales(resources.configuration)[0]?.language
+
+            val newLanguage = if (currentLanguage == "fr") {
+                "en"
+            } else {
+                "fr"
+            }
+
+            AppCompatDelegate.setApplicationLocales(
+                LocaleListCompat.forLanguageTags(newLanguage)
+            )
+        }
 
         findViewById<ImageView>(R.id.profile_photo).setImageResource(R.drawable.istockphoto)
 
